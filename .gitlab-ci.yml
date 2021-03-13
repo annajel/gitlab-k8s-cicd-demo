@@ -30,6 +30,7 @@ test_variable:
     - echo $K8S_TOKEN
     - echo $CI_REGISTRY
     - echo $CI_PROJECT_NAME
+    - echo $CI_PROJECT_NAME
 
 hw-service-build:
   image: maven:3.6.3-jdk-13
