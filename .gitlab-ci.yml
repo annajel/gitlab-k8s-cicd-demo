@@ -101,9 +101,7 @@ deploy-topology:
 
 deploy-service:
   image: google/cloud-sdk
-  stage: deploy-version
-  tags:
-    - test
+  stage: deploy-version  
   script: |-
         echo "Deploying HW Service"
         echo "Executed in runnner:" $(hostname)
