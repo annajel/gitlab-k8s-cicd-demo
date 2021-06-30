@@ -30,10 +30,14 @@ test_variable:
     - echo $CI_REGISTRY_USER
     - echo $CI_REGISTRY
     - echo $CI_PROJECT_NAME
+   tags:
+    - test
 
 hw-service-build:
   image: maven:3.6.3-jdk-13
   stage: build
+  tags:
+    - test
   script: |-
         cd service
         mvn package -B -X
@@ -49,6 +53,8 @@ hw-service-build:
 hw-service-test:
   image: maven:3-jdk-8
   stage: test
+  tags:
+    - test
   script: "echo TEST OK"
   only:
     changes:
@@ -56,6 +62,8 @@ hw-service-test:
 
 hw-service-package:
   stage: package
+  tags:
+    - test
   image: docker:dind
   needs: ["hw-service-build"]
   services:
@@ -74,6 +82,8 @@ hw-service-package:
  
 deploy-topology:
   stage: deploy-topology
+  tags:
+    - test
   image: dtzar/helm-kubectl
   script: |-
       kubectl config set-cluster k8s --server="$K8S_SERVER"
@@ -92,6 +102,8 @@ deploy-topology:
 deploy-service:
   image: google/cloud-sdk
   stage: deploy-version
+  tags:
+    - test
   script: |-
         echo "Deploying HW Service"
         echo "Executed in runnner:" $(hostname)
